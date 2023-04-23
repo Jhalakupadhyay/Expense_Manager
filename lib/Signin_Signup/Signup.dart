@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:expense_manager/main.dart';
 import 'TextFieldUi.dart';
-
+import 'Authentication.dart';
 class Signup extends StatefulWidget {
-  const Signup({Key? key}) : super(key: key);
+  const   Signup({Key? key}) : super(key: key);
 
   @override
   State<Signup> createState() => _SignupState();
 }
 
 class _SignupState extends State<Signup> {
+  String name = "";
+  String password = "";
+  String mail = "";
+  AuthState state = new AuthState();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,20 +49,40 @@ class _SignupState extends State<Signup> {
                   children: [
                     Expanded(
                         child: TextBox(
-                      s: 'Enter Your Mail ID',
+                      s: 'Enter Name',
+                          onChanged: (value) {
+                        setState(() {
+                          name = value;
+                        });
+                          }
+                    )),
+                    Expanded(
+                        child: TextBox(
+                      s: 'Enter Your MailID',
+                          onChanged: (value)
+                          {setState(() {
+                            mail = value;
+                          });
+                          },
                     )),
                     Expanded(
                         child: TextBox(
                       s: 'Enter Your Password',
-                    )),
-                    Expanded(
-                        child: TextBox(
-                      s: 'Re-enter Your Password',
+                          onChanged: (value)
+                          {setState(() {
+                            password = value;
+                          });
+                          },
                     )),
                     Expanded(
                         flex: 2,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: ()
+                          {
+                            setState(() {
+                              state.Register_User(mail, password, name);
+                            });
+                          },
                           child: Container(
                             padding: EdgeInsets.only(top: 15,bottom: 15,left: 25,right: 25),
                             decoration: BoxDecoration(
