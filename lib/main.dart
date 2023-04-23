@@ -1,4 +1,5 @@
 import 'package:expense_manager/Signin_Signup/Signup.dart';
+import 'package:expense_manager/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         routes:
         {
           'Signup': (context) => const Signup(),
+          'LandingPage':(context) => const Land_Page(),
         },
       ),
     );

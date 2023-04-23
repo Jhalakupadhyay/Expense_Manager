@@ -1,3 +1,4 @@
+import 'package:expense_manager/constants.dart';
 import 'package:flutter/material.dart';
 import 'TextFieldUi.dart';
 import 'Authentication.dart';
@@ -16,7 +17,7 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo[200],
+      backgroundColor: constants.body_color,
       body: SafeArea(
         child: Column(
           children: [
@@ -40,7 +41,7 @@ class _SignupState extends State<Signup> {
               child: Container(
                 padding: EdgeInsets.only(top: 30, left: 10, right: 10),
                 decoration: BoxDecoration(
-                  color: Colors.indigo[400],
+                  color: constants.appbar_color,
                   borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(20),
                       topLeft: Radius.circular(20)),
@@ -82,14 +83,15 @@ class _SignupState extends State<Signup> {
                             setState(() {
                               state.Register_User(mail, password, name);
                             });
+                            Navigator.pushNamed(context, 'LandingPage');
                           },
                           child: Container(
                             padding: EdgeInsets.only(top: 15,bottom: 15,left: 25,right: 25),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.indigo[900]
+                              color: constants.body_color,
                             ),
-                            child: Text('SignUp',style: TextStyle(color: Colors.white),),
+                            child: Text('SignUp',style: TextStyle(color: Colors.black),),
                           ),
                         ),),
                   ],
