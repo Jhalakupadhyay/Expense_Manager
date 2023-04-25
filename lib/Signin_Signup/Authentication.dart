@@ -1,8 +1,13 @@
 import 'package:expense_manager/constants.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:appwrite/appwrite.dart';
+
 class AuthState extends ChangeNotifier
 {
+  String name = "";
+  String password = "";
+  String mail = "";
+
   Client client = Client();
   Account? account;
   AuthState()
@@ -17,7 +22,7 @@ class AuthState extends ChangeNotifier
     account = Account(client);
   }
 
-  Register_User(String mail,String password,String name)
+  Register_User()
   {
     final user = account?.create(
       userId: ID.unique(),
@@ -26,4 +31,5 @@ class AuthState extends ChangeNotifier
       name: name,
     );
   }
+
 }

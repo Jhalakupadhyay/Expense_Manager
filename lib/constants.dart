@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class constants
 {
@@ -7,4 +7,9 @@ class constants
   static Color appbar_color = Color.fromRGBO(43, 45, 66, 1);
   static Color body_color = Color.fromRGBO(237, 242, 244, 1);
   static Color bottom_bar = Color.fromRGBO(217, 4, 41, 1);
+  static const TextStyle style = TextStyle(
+    color: Colors.brown,
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+  );
 }

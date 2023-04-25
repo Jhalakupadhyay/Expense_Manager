@@ -1,6 +1,7 @@
 import 'package:expense_manager/constants.dart';
 import 'package:flutter/material.dart';
-
+import 'Button_Design.dart';
+import 'Welcome_Section.dart';
 class Land_Page extends StatelessWidget {
   const Land_Page({Key? key}) : super(key: key);
 
@@ -9,6 +10,9 @@ class Land_Page extends StatelessWidget {
     return Scaffold(
       backgroundColor: constants.body_color,
       appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
         title: const Text(
           "Expenses",
           style: TextStyle(
@@ -25,14 +29,10 @@ class Land_Page extends StatelessWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: constants.bottom_bar,
-        onPressed: () {},
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: const Button_Bottom(),
       bottomNavigationBar: BottomAppBar(
         color: constants.bottom_bar,
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         notchMargin: 6.0,
         child: Row(
           children: [
@@ -41,6 +41,12 @@ class Land_Page extends StatelessWidget {
           ],
         ),
       ),
+      body: Column(
+        children:  [
+          Expanded(child: WelcomeSection()),
+        ],
+      ),
     );
   }
 }
+

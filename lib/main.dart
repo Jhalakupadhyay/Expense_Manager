@@ -1,5 +1,5 @@
 import 'package:expense_manager/Signin_Signup/Signup.dart';
-import 'package:expense_manager/landing_page.dart';
+import 'package:expense_manager/LANDING_PAGE/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:provider/provider.dart';

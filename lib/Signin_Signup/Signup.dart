@@ -10,9 +10,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  String name = "";
-  String password = "";
-  String mail = "";
+
   AuthState state = new AuthState();
   @override
   Widget build(BuildContext context) {
@@ -53,7 +51,7 @@ class _SignupState extends State<Signup> {
                       s: 'Enter Name',
                           onChanged: (value) {
                         setState(() {
-                          name = value;
+                          state.name = value;
                         });
                           }
                     )),
@@ -62,7 +60,7 @@ class _SignupState extends State<Signup> {
                       s: 'Enter Your MailID',
                           onChanged: (value)
                           {setState(() {
-                            mail = value;
+                            state.mail = value;
                           });
                           },
                     )),
@@ -71,7 +69,7 @@ class _SignupState extends State<Signup> {
                       s: 'Enter Your Password',
                           onChanged: (value)
                           {setState(() {
-                            password = value;
+                            state.password = value;
                           });
                           },
                     )),
@@ -81,7 +79,7 @@ class _SignupState extends State<Signup> {
                           onPressed: ()
                           {
                             setState(() {
-                              state.Register_User(mail, password, name);
+                              state.Register_User();
                             });
                             Navigator.pushNamed(context, 'LandingPage');
                           },
