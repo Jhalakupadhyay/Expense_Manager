@@ -1,7 +1,9 @@
 import 'package:expense_manager/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'TextFieldUi.dart';
 import 'Authentication.dart';
+
 class Signup extends StatefulWidget {
   const   Signup({Key? key}) : super(key: key);
 
@@ -11,9 +13,12 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
 
-  AuthState state = new AuthState();
+  String name = "";
+  String password = "";
+  String mail = "";
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<AuthState>(context);
     return Scaffold(
       backgroundColor: constants.body_color,
       body: SafeArea(
@@ -51,7 +56,7 @@ class _SignupState extends State<Signup> {
                       s: 'Enter Name',
                           onChanged: (value) {
                         setState(() {
-                          state.name = value;
+                          name = value;
                         });
                           }
                     )),
@@ -60,7 +65,7 @@ class _SignupState extends State<Signup> {
                       s: 'Enter Your MailID',
                           onChanged: (value)
                           {setState(() {
-                            state.mail = value;
+                            mail = value;
                           });
                           },
                     )),
@@ -69,19 +74,18 @@ class _SignupState extends State<Signup> {
                       s: 'Enter Your Password',
                           onChanged: (value)
                           {setState(() {
-                            state.password = value;
+                           password = value;
                           });
                           },
                     )),
                     Expanded(
                         flex: 2,
                         child: TextButton(
-                          onPressed: ()
-                          {
+                          onPressed: () async {
                             setState(() {
-                              state.Register_User();
+                              state.Register_User(name,mail,password);
                             });
-                            Navigator.pushNamed(context, 'LandingPage');
+                            await state.LoggedIn?Navigator.pushNamed(context, 'LandingPage'):Navigator.pushNamed(context, 'LoginPage');
                           },
                           child: Container(
                             padding: EdgeInsets.only(top: 15,bottom: 15,left: 25,right: 25),

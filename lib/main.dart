@@ -1,14 +1,9 @@
+import 'package:expense_manager/Signin_Signup/Authentication.dart';
+import 'package:expense_manager/Signin_Signup/Login_Screen.dart';
 import 'package:expense_manager/Signin_Signup/Signup.dart';
 import 'package:expense_manager/LANDING_PAGE/landing_page.dart';
 import 'package:flutter/material.dart';
-import 'package:appwrite/appwrite.dart';
 import 'package:provider/provider.dart';
-import 'Signin_Signup/Authentication.dart';
-
-Client client = Client()
-    .setEndpoint('http://localhost/v1')
-    .setProject('642eedf501f05')
-    .setSelfSigned(status: true);
 
 void main() {
   runApp(const MyApp());
@@ -31,8 +26,9 @@ class MyApp extends StatelessWidget {
         initialRoute: 'Signup',
         routes:
         {
-          'Signup': (context) => const Signup(),
-          'LandingPage':(context) => const Land_Page(),
+          'Signup': (context) =>  Signup(),
+          'LandingPage':(context) =>  Land_Page(),
+          'LoginPage':(context) =>  login()
         },
       ),
     );

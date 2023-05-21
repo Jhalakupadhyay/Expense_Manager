@@ -1,7 +1,10 @@
+import 'package:expense_manager/Signin_Signup/Authentication.dart';
 import 'package:expense_manager/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'Button_Design.dart';
 import 'Welcome_Section.dart';
+
 class Land_Page extends StatelessWidget {
   const Land_Page({Key? key}) : super(key: key);
 
