@@ -3,7 +3,8 @@ import 'package:expense_manager/constants.dart';
 import 'package:flutter/widgets.dart';
 
 
-class AuthState extends ChangeNotifier {
+class AuthState extends ChangeNotifier
+{
   bool LoggedIn = false;
   Client client = Client();
   late Account account;
@@ -16,7 +17,7 @@ class AuthState extends ChangeNotifier {
 
 
   void _init() {
-    client.setEndpoint(constants.API_Endpoint).setProject(constants.projectID);
+    client.setEndpoint(constants.API_Endpoint).setProject(constants.projectID).setSelfSigned(status: true);
     account = Account(client);
   }
 
@@ -30,11 +31,11 @@ class AuthState extends ChangeNotifier {
         password: password,
         name: name,
       );
-      if (user != null) {
-        await Login_User(mail, password);
-      }
-    } catch (e) {
+      print(user);
+      //user.status == true ? await Login_User(mail, password) : print('Not Registered');
+    } catch (e, stacktrace) {
       print(e);
+      print(stacktrace);
     }
   }
 
@@ -42,24 +43,15 @@ class AuthState extends ChangeNotifier {
   // Function for Login
   Future Login_User(String mail, String password) async{
     try {
-      final session =  account
+      final session =  await account
           .createEmailSession(
         email: mail,
         password: password,
       );
-      if (session != null) {
-        LoggedIn = true;
-        notifyListeners();
-      }
+      LoggedIn = true;
+      notifyListeners();
     } catch (e) {
       print(e);
-    }
-    try
-    {
-      final res = await account.get();
-      print(res);
-    }catch(e){
-      print(e.toString());
     }
   }
 

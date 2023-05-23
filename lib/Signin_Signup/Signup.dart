@@ -18,7 +18,7 @@ class _SignupState extends State<Signup> {
   String mail = "";
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<AuthState>(context);
+    final state = Provider.of<AuthState>(context,listen: false);
     return Scaffold(
       backgroundColor: constants.body_color,
       body: SafeArea(

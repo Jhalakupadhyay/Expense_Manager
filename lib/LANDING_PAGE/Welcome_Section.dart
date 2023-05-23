@@ -1,5 +1,4 @@
 import 'package:expense_manager/Signin_Signup/Authentication.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_manager/constants.dart';
 import 'package:provider/provider.dart';
