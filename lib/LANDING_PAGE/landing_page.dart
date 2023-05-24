@@ -1,13 +1,21 @@
-import 'package:expense_manager/Signin_Signup/Authentication.dart';
 import 'package:expense_manager/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'Button_Design.dart';
+import 'Expenses_Section.dart';
 import 'Welcome_Section.dart';
+import 'Animated_Floting_Button.dart';
 
-class Land_Page extends StatelessWidget {
-  const Land_Page({Key? key}) : super(key: key);
+class Land_Page extends StatefulWidget {
+  @override
+  State<Land_Page> createState() => _Land_PageState();
+}
 
+class _Land_PageState extends State<Land_Page> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    animated();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,7 +41,7 @@ class Land_Page extends StatelessWidget {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: const Button_Bottom(),
+        floatingActionButton: animated(),
         bottomNavigationBar: BottomAppBar(
           color: constants.bottom_bar,
           shape: const CircularNotchedRectangle(),
@@ -48,6 +56,7 @@ class Land_Page extends StatelessWidget {
         body: Column(
           children:  [
             Expanded(child: WelcomeSection()),
+            Expanded(flex: 9,child: Expenses()),
           ],
         ),
       ),

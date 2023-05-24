@@ -21,9 +21,10 @@ class MyApp extends StatelessWidget {
         title: 'Expense_Manager',
         theme: ThemeData(
             primarySwatch: Colors.blue,
-            scaffoldBackgroundColor: Colors.deepOrange
+            scaffoldBackgroundColor: Colors.deepOrange,
+            fontFamily: 'DancingScript'
         ),
-        initialRoute: 'Signup',
+        initialRoute: 'LandingPage',
         routes:
         {
           'Signup': (context) =>  Signup(),
