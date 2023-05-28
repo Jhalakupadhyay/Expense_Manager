@@ -42,7 +42,7 @@ class _Land_PageState extends State<Land_Page> with TickerProviderStateMixin{
         backgroundColor: constants.body_color,
         appBar: AppBar(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15)),
           ),
           title: const Text(
             "Expenses",

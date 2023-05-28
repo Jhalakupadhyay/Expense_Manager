@@ -1,4 +1,3 @@
-import 'package:expense_manager/LANDING_PAGE/landing_page.dart';
 import 'package:expense_manager/constants.dart';
 import 'package:flutter/material.dart';
 
