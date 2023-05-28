@@ -15,6 +15,8 @@ class _Land_PageState extends State<Land_Page> with TickerProviderStateMixin{
   late AnimationController _controller;
   late AnimationController _controller1;
   late Animation<double> animation;
+  double turns = 0.0;
+  bool isclicked = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -23,12 +25,12 @@ class _Land_PageState extends State<Land_Page> with TickerProviderStateMixin{
         vsync: this, duration: const Duration(milliseconds: 500));
     _controller1 = AnimationController(
         vsync: this,
-        duration: const Duration(milliseconds: 500),
-        reverseDuration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 400),
+        reverseDuration: const Duration(milliseconds: 400),
     );
     animation = Tween<double>(
       begin: 0.0,
-      end: 250.0,
+      end: 200.0,
     ).animate(_controller1)..addListener(() {
       setState(() {});
     });
@@ -53,13 +55,13 @@ class _Land_PageState extends State<Land_Page> with TickerProviderStateMixin{
           leading: Container(
             padding: const EdgeInsets.all(10),
             child: const Image(
-              image: AssetImage('images/img.png'),
+              image: AssetImage('Assets/Images/img.png'),
             ),
           ),
         ),
-        bottomSheet: B_Sheet(animation: animation,),
+        bottomSheet: B_Sheet(animation: animation,controller: _controller,controller1: _controller1,turns: turns,isclicked: isclicked,),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: animated(controller: _controller,controller1: _controller1,),
+        floatingActionButton: animated(controller: _controller,controller1: _controller1,turns: turns, isclicked: isclicked,),
         bottomNavigationBar: BottomAppBar(
           color: constants.bottom_bar,
           shape: const CircularNotchedRectangle(),

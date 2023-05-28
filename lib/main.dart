@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             scaffoldBackgroundColor: Colors.deepOrange,
-            fontFamily: 'DancingScript'
+            fontFamily: 'PTSerif'
         ),
         initialRoute: 'LandingPage',
         routes:

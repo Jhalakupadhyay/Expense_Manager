@@ -24,7 +24,7 @@ class _loginState extends State<login> {
           children: [
             const Expanded(
                 child: Image(
-                  image: AssetImage('images/img.png'),
+                  image: AssetImage('Assets/Images/img.png'),
                   height: 120,
                   width: 120,
                 )),
