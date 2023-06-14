@@ -88,23 +88,41 @@ class _ExpensesState extends State<Expenses> {
                     final expense = provider.expenses![index];
                     final amount = expense.data['Amount'];
                     final reason = expense.data['Reason'];
-                    return Container(
-                      margin: EdgeInsets.all(10),
-                      child: Card(
-                        child: ListTile(
-                          contentPadding: EdgeInsets.only(left: 10, right: 10),
-                          title: Text(
-                            reason,
-                            style: const TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
+                    return Dismissible(
+                      key: Key(expense.$id),
+                      onDismissed: (direction){
+                        state.Delete_Document(expense.$id.toString());
+                        setState(() {
+                          provider.expenses!.removeAt(index);
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Item Deleted')),
+                        );
+                      },
+                      background: Container(
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Icon(Icons.delete, color: Colors.white),
+                      ),
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        child: Card(
+                          child: ListTile(
+                            contentPadding: EdgeInsets.only(left: 10, right: 10),
+                            title: Text(
+                              reason,
+                              style: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          trailing: Text(
-                            amount.toString(),
-                            style: const TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
+                            trailing: Text(
+                              amount.toString(),
+                              style: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),

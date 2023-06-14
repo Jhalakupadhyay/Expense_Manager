@@ -99,6 +99,7 @@ class AuthState extends ChangeNotifier {
           Permission.read(Role.any()),
           Permission.write(Role.any()),
         ],
+
       );
       notifyListeners();
     } on AppwriteException catch (e) {
@@ -139,6 +140,16 @@ class AuthState extends ChangeNotifier {
       print(e);
     }
   }
+
+  Delete_Document(String DocId)
+  {
+    Future result = databases.deleteDocument(
+      databaseId: constants.database_ID,
+      collectionId: constants.collection_ID,
+      documentId: DocId,
+    );
+  }
+
 
   //Setter for Selected
   void set_selected(bool TF) {
