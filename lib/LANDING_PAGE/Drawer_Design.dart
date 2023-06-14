@@ -1,7 +1,10 @@
+import 'package:expense_manager/Authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_manager/constants.dart';
+import 'package:provider/provider.dart';
 import 'Button_design.dart';
 import 'Text_Field_UI.dart';
+import 'package:provider/provider.dart';
 
 class B_Sheet extends StatefulWidget {
   final Animation<double> animation;
@@ -30,9 +33,9 @@ class _B_SheetState extends State<B_Sheet> {
     super.initState();
     color = Colors.greenAccent.withAlpha(100);
   }
-
   @override
   Widget build(BuildContext context) {
+    AuthState state = Provider.of<AuthState>(context,listen: false);
     bool selected = true;
     return GestureDetector(
       onTap: () {
@@ -49,17 +52,19 @@ class _B_SheetState extends State<B_Sheet> {
           color: color,
           child: Column(
             children: [
+              //Row for Credited and Debited button
               Expanded(
                 child: Row(
                   children: [
                     // Button for credited money addition
-
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
                             color = Colors.greenAccent.withAlpha(100);
-                            selected = false;
+                            selected = true;
+                            state.selected = selected;
+                            print(state.selected);
                           });
                         },
                         child:  Button(
@@ -69,17 +74,16 @@ class _B_SheetState extends State<B_Sheet> {
                           text: 'Credited',
                           color: Colors.greenAccent.withAlpha(200),
                         ),
-                      ),
-                    ),
-
+                      )),
                     //Button for debited money addition
-
                     Expanded(
                         child: GestureDetector(
                       onTap: () {
                         setState(() {
                           color = Colors.redAccent.withAlpha(100);
-                          selected = true;
+                          selected = false;
+                          state.selected = selected;
+                          print(state.selected);
                         });
                       },
                       child: Button(
@@ -93,6 +97,7 @@ class _B_SheetState extends State<B_Sheet> {
                   ],
                 ),
               ),
+              //Row for adding expenses and text related to it
               Expanded(
                 flex: 3,
                 child: Row(
@@ -100,24 +105,16 @@ class _B_SheetState extends State<B_Sheet> {
                     // Text About Expense is to be added here
                     Expanded(
                       flex: 3,
-                      child: Text_Field(
-                        text: 'Text Here',
-                        t1: text,
-                        i: AssetImage('Assets/Images/choice.png'),
+                      child: Text_Field(text: 'Text Here', t1: text, i: AssetImage('Assets/Images/choice.png'),
                       ),
                     ),
                     //To add the value of money credited or debited
                     Expanded(
                       flex: 3,
-                      child: Text_Field(
-                        text: 'Enter Amount',
-                        t1: amount,
-                        i: AssetImage('Assets/Images/money.png'),
+                      child: Text_Field(text: 'Enter Amount', t1: amount, i: AssetImage('Assets/Images/money.png'),
                       ),
                     ),
-
                     //Button to finaly add the Expense
-
                     Expanded(
                       child: IconButton(
                         onPressed: () {
@@ -126,6 +123,9 @@ class _B_SheetState extends State<B_Sheet> {
                           if (!currentFocus.hasPrimaryFocus) {
                             currentFocus.unfocus();
                           }
+                          state.fetchData();
+                          state.updateBalance(double.tryParse(amount.text) ?? 0.0 );
+                          state.addData(reason: text.text, amount: double.tryParse(amount.text) ?? 0.0);
                           // to close the bottom sheet with animation on clicking check icon
                           setState(() {
                             text.clear();
@@ -135,7 +135,7 @@ class _B_SheetState extends State<B_Sheet> {
                             widget.turns += 1 / 4;
                             widget.isclicked = !widget.isclicked;
                           });
-                        },
+                          },
                         icon: const Icon(Icons.check),
                         color: constants.appbar_color,
                       ),

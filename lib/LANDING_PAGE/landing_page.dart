@@ -12,6 +12,7 @@ class Land_Page extends StatefulWidget {
 }
 
 class _Land_PageState extends State<Land_Page> with TickerProviderStateMixin{
+  int CurrentBalance = 0;
   late AnimationController _controller;
   late AnimationController _controller1;
   late Animation<double> animation;
@@ -41,7 +42,7 @@ class _Land_PageState extends State<Land_Page> with TickerProviderStateMixin{
       child: Scaffold(
         backgroundColor: constants.body_color,
         appBar: AppBar(
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15)),
           ),
           title: const Text(

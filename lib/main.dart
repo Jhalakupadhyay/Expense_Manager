@@ -1,4 +1,4 @@
-import 'package:expense_manager/Signin_Signup/Authentication.dart';
+import 'package:expense_manager/Authentication.dart';
 import 'package:expense_manager/Signin_Signup/Login_Screen.dart';
 import 'package:expense_manager/Signin_Signup/Signup.dart';
 import 'package:expense_manager/LANDING_PAGE/landing_page.dart';
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return ChangeNotifierProvider<AuthState>(
       create: (BuildContext context) => AuthState(),
       child: MaterialApp(
         title: 'Expense_Manager',

@@ -1,4 +1,4 @@
-import 'package:expense_manager/Signin_Signup/Authentication.dart';
+import 'package:expense_manager/Authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_manager/constants.dart';
 import 'package:provider/provider.dart';
@@ -14,14 +14,21 @@ class _WelcomeSectionState extends State<WelcomeSection> {
     AuthState state = Provider.of<AuthState>(context);
     double width = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       child: Container(
         width: width,
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: constants.appbar_color.withAlpha(130),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-        ),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 10,
+                blurStyle: BlurStyle.normal,
+                offset: Offset(0, 3),
+              )
+            ]),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -34,22 +41,22 @@ class _WelcomeSectionState extends State<WelcomeSection> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Expanded(child: Container(margin: EdgeInsets.all(5), child: CircleAvatar())),
+                      Expanded(child: Container(margin: const EdgeInsets.all(5), child: CircleAvatar(backgroundColor: Colors.greenAccent,))),
                       Expanded(
                         flex: 5,
                         child: Text(
-                          "Hii , " + snapshot.data!,
-                          style: TextStyle(
+                          "Hii , ${snapshot.data!}",
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.indigo.shade900,
+                            color: Colors.black,
                           ),
                         ),
                       ),
                     ],
                   );
                 }
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               },
             )
           ],

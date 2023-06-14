@@ -2,7 +2,7 @@ import 'package:expense_manager/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'TextFieldUi.dart';
-import 'Authentication.dart';
+import '../Authentication.dart';
 
 class Signup extends StatefulWidget {
   const   Signup({Key? key}) : super(key: key);
