@@ -2,6 +2,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:expense_manager/Utils/constants.dart';
 import 'package:flutter/widgets.dart';
+import 'package:expense_manager/Backend/Appwrite_provider.dart';
 
 class Auth_State extends ChangeNotifier
 {

@@ -1,11 +1,11 @@
-import 'package:expense_manager/BackendAppwrite_provider.dart';
-import 'package:expense_manager/LANDING_PAGE/Bottom_Drawer.dart';
+import 'package:expense_manager/Backend/Appwrite_provider.dart';
+import 'package:expense_manager/Bottom_Navigation/Bottom_Drawer.dart';
 import 'package:expense_manager/Utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Expenses_Section.dart';
 import 'Welcome_Section.dart';
-import 'Animated_Floting_Button.dart';
+import 'package:expense_manager/Bottom_Navigation/Animated_Floting_Button.dart';
 import 'package:expense_manager/Authentication/Auth_Provider/Auth_Provider.dart';
 
 class Land_Page extends StatefulWidget {

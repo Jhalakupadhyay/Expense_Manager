@@ -71,7 +71,7 @@ class _ExpensesState extends State<Expenses> {
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(
-              "  Current Balance is:  ${state.expenses != null && state.expenses!.isNotEmpty ? state.curr_balance: 0.00}",
+              "  Current Balance is:  ${state.expenses != null ? state.expenses![state.expenses!.length-1].data['Curr_Amount']: 0.00}",
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,

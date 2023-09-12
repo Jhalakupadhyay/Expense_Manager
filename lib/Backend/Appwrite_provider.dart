@@ -14,6 +14,7 @@ class data_base extends ChangeNotifier {
   late User _user;
   Auth_State state = new Auth_State();
 
+
   //Adding Data to the DataBase
   Future<void> addData({required String reason, required double amount}) async {
     try {

@@ -1,7 +1,7 @@
 import 'package:expense_manager/Backend/Appwrite_provider.dart';
 import 'package:expense_manager/Authentication/Auth_UI/Signin.dart';
 import 'package:expense_manager/Authentication/Auth_UI/Signup.dart';
-import 'package:expense_manager/LANDING_PAGE/landing_page.dart';
+import 'package:expense_manager/Expense_Page/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expense_manager/Authentication/Auth_Provider/Auth_Provider.dart';
