@@ -5,6 +5,7 @@ import 'package:expense_manager/Expense_Page/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expense_manager/Authentication/Auth_Provider/Auth_Provider.dart';
+import 'package:expense_manager/Authentication/Auth_Provider/AutoLogin/CheckUserAuthenticated.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,8 +28,9 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             scaffoldBackgroundColor: Colors.deepOrange,
             fontFamily: 'PTSerif'),
-        initialRoute: 'Signup',
+        initialRoute: 'Loding',
         routes: {
+          'Loding': (context) => CheckUserAuth(),
           'Signup': (context) => Signup(),
           'LandingPage': (context) => Land_Page(),
           'LoginPage': (context) => login(),

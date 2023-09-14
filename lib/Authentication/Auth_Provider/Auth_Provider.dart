@@ -4,8 +4,7 @@ import 'package:expense_manager/Utils/constants.dart';
 import 'package:flutter/widgets.dart';
 import 'package:expense_manager/Backend/Appwrite_provider.dart';
 
-class Auth_State extends ChangeNotifier
-{
+class Auth_State extends ChangeNotifier {
   bool LoggedIn = false;
   Client client = Client();
   late Account account;
@@ -79,5 +78,18 @@ class Auth_State extends ChangeNotifier
       print(e.toString());
       return '';
     }
+  }
+
+  //Check User session
+  Future<bool> CheckUserAuth() async
+  {
+    try {
+      await account.getSession(sessionId: 'current');
+      return true;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+    return false;
   }
 }

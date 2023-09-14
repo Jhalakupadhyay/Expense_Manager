@@ -71,7 +71,7 @@ class _ExpensesState extends State<Expenses> {
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(
-              "  Current Balance is:  ${state.expenses != null ? state.expenses![state.expenses!.length-1].data['Curr_Amount']: 0.00}",
+              "  Current Balance is:  ${state.expenses != null && state.expenses!.isNotEmpty ? state.expenses!.last.data['Curr_Amount'] : 0.00}",
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
@@ -91,10 +91,12 @@ class _ExpensesState extends State<Expenses> {
                     return Dismissible(
                       key: Key(expense.$id.toString()),
                       onDismissed: (direction){
-                        state.fetchSavedAmount(provider.expenses![index].data['Amount'], provider.expenses![index].data['Credited_Debited']);
-                        setState(() {
-                          provider.expenses!.removeAt(index);
-                          state.Delete_Document(expense.$id.toString());
+                        state.fetchSavedAmount(provider.expenses![index].data['Amount'].toDouble(), provider.expenses![index].data['Credited_Debited']);
+                        setState(() async {
+                          if(await state.Delete_Document(expense.$id.toString()))
+                            {
+                              provider.expenses!.removeAt(index);
+                            }
                         });
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Item Deleted'),

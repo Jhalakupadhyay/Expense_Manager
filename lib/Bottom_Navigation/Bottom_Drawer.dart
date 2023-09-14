@@ -125,7 +125,7 @@ class _B_SheetState extends State<B_Sheet> {
                           }
                           state.fetchData();
                           state.updateBalance(double.tryParse(amount.text) ?? 0.0 );
-                          state.addData(reason: text.text, amount: double.tryParse(amount.text) ?? 0.0);
+                          state.addData(reason: text.text, amount: double.tryParse(amount.text) ?? 0.0,credited: selected);
                           // to close the bottom sheet with animation on clicking check icon
                           setState(() {
                             text.clear();

@@ -11,12 +11,12 @@ class data_base extends ChangeNotifier {
   double curr_balance = 0;
   double total_income = 0;
   double total_expend = 0;
-  late User _user;
   Auth_State state = new Auth_State();
+  List<Document>? expenses = [];
 
 
   //Adding Data to the DataBase
-  Future<void> addData({required String reason, required double amount}) async {
+  Future<void> addData({required String reason, required double amount,required credited}) async {
     try {
       final document = await state.databases.createDocument(
         databaseId: constants.database_ID,
@@ -29,6 +29,7 @@ class data_base extends ChangeNotifier {
           'Total_Income': total_income,
           'Amount': amount,
           'Reason':reason,
+          'Credited_Debited':credited,
         },
         permissions: [
           Permission.read(Role.any()),
@@ -61,8 +62,6 @@ class data_base extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-  List<Document>? expenses = [];
   void fetchData() async {
     try {
       final value = await getData();
@@ -76,18 +75,20 @@ class data_base extends ChangeNotifier {
     }
   }
 
-  Delete_Document(String DocId) async {
+  Future<bool> Delete_Document(String DocId) async {
       Future result = state.databases.deleteDocument(
       databaseId: constants.database_ID,
       collectionId: constants.collection_ID,
       documentId: DocId,
     );
-      result
-          .then((response) {
+      result.then((response) {
         print(response);
+        return true;
       }).catchError((error) {
         print(error.response);
+        return false;
       });
+      return false;
   }
 
   //Setter for Selected
