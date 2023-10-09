@@ -3,20 +3,28 @@ import 'package:appwrite/models.dart';
 import 'package:expense_manager/Utils/constants.dart';
 import 'package:flutter/widgets.dart';
 import 'package:expense_manager/Authentication/Auth_Provider/Auth_Provider.dart';
+import 'package:welltested_annotation/welltested_annotation.dart';
 
 
+@Welltested(excludedMethods: ['addData','Update_Document','Delete_Document'])
 class data_base extends ChangeNotifier {
-
   bool selected = true;
-  double curr_balance = 0;
-  double total_income = 0;
-  double total_expend = 0;
   Auth_State state = new Auth_State();
   List<Document>? expenses = [];
 
+  data_base() {
+    getData();
+  }
+
+  //Setter for Selected
+  void set_selected(bool TF) {
+    selected = TF;
+    print("value of selected is : $selected");
+    notifyListeners();
+  }
 
   //Adding Data to the DataBase
-  Future<void> addData({required String reason, required double amount,required credited}) async {
+  Future<void> addData({required String reason, required double amount}) async {
     try {
       final document = await state.databases.createDocument(
         databaseId: constants.database_ID,
@@ -24,12 +32,30 @@ class data_base extends ChangeNotifier {
         documentId: ID.unique(),
         data: {
           'Date': DateTime.now().toString(),
-          'Curr_Amount': curr_balance,
-          'Total_Expenditure': total_expend,
-          'Total_Income': total_income,
+          'Curr_Amount': selected
+              ? (expenses!.isNotEmpty
+                  ? expenses!.last.data['Curr_Amount'] + amount
+                  : 0 + amount)
+              : (expenses!.isNotEmpty
+                  ? expenses!.last.data['Curr_Amount'] - amount
+                  : 0 - amount),
+          'Total_Expenditure': !selected
+              ? (expenses!.isNotEmpty
+                  ? expenses!.last.data['Total_Expenditure'] + amount
+                  : 0 + amount)
+              : (expenses!.isNotEmpty
+                  ? expenses!.last.data['Total_Expenditure']
+                  : 0),
+          'Total_Income': selected
+              ? (expenses!.isNotEmpty
+                  ? expenses!.last.data['Total_Income'] + amount
+                  : 0 + amount)
+              : (expenses!.isNotEmpty
+                  ? expenses!.last.data['Total_Income']
+                  : 0),
           'Amount': amount,
-          'Reason':reason,
-          'Credited_Debited':credited,
+          'Reason': reason,
+          'Credited_Debited': selected,
         },
         permissions: [
           Permission.read(Role.any()),
@@ -39,98 +65,67 @@ class data_base extends ChangeNotifier {
       );
       notifyListeners();
     } on AppwriteException catch (e) {
-      print(e);
+      print(e.message);
     }
   }
 
   //Getting Data from the DataBase
-  Future<DocumentList> getData() async {
-    return state.databases.listDocuments(
+  Future getData() async {
+    final value = await state.databases.listDocuments(
       databaseId: constants.database_ID,
       collectionId: constants.collection_ID,
     );
+    expenses = value.documents;
   }
 
-  //To update the current Balanace
-  void updateBalance(double balance) {
-    if (selected) {
-      curr_balance += balance;
-      total_income += balance;
-    } else {
-      curr_balance -= balance;
-      total_expend += balance;
-    }
-    notifyListeners();
-  }
-  void fetchData() async {
+  //Deleting Document from the list
+  late Document deleted_document;
+  Future Delete_Document(String DocId) async {
     try {
-      final value = await getData();
-      expenses = value.documents;
-      // Calculate savedAmount, totalSavings, and totalExpenditure from expenses
-      curr_balance = expenses?.last.data['Curr_Amount'] ?? 0;
-      total_income = expenses?.last.data['Total_Expenditure'] ?? 0;
-      total_expend = expenses?.last.data['Total_Income'] ?? 0;
+      final data = await state.databases.deleteDocument(
+        databaseId: constants.database_ID,
+        collectionId: constants.collection_ID,
+        documentId: DocId,
+      );
+      print('Document Deleted Successfully');
+      getData();
+      notifyListeners();
     } catch (e) {
       print(e);
     }
   }
 
-  Future<bool> Delete_Document(String DocId) async {
-      Future result = state.databases.deleteDocument(
+  //Updating expenses when a document is deleted
+  Future Update_Document() async {
+    final result = state.databases.updateDocument(
       databaseId: constants.database_ID,
       collectionId: constants.collection_ID,
-      documentId: DocId,
+      documentId: expenses!.last.$id,
+      result:{
+        'Curr_Amount':deleted_document.data['Credited_Debited']
+            ? (expenses!.isNotEmpty
+            ? expenses!.last.data['Curr_Amount'] + deleted_document.data['Amount']
+            : 0 + deleted_document.data['Amount'])
+            : (expenses!.isNotEmpty
+            ? expenses!.last.data['Curr_Amount'] - deleted_document.data['Amount']
+            : 0 - deleted_document.data['Amount']),
+        'Total_Expenditure': !deleted_document.data['Credited_Debited']
+            ? (expenses!.isNotEmpty
+            ? expenses!.last.data['Total_Expenditure'] - deleted_document.data['Amount']
+            : 0 - deleted_document.data['Amount'])
+            : (expenses!.isNotEmpty
+            ? expenses!.last.data['Total_Expenditure']
+            : 0),
+        'Total_Income': !deleted_document.data['Credited_Debited']
+            ? (expenses!.isNotEmpty
+            ? expenses!.last.data['Total_Income'] - deleted_document.data['Amount']
+            : 0 - deleted_document.data['Amount'])
+            : (expenses!.isNotEmpty
+            ? expenses!.last.data['Total_Income']
+            : 0),
+      },
     );
-      result.then((response) {
-        print(response);
-        return true;
-      }).catchError((error) {
-        print(error.response);
-        return false;
-      });
-      return false;
-  }
-
-  //Setter for Selected
-  void set_selected(bool TF) {
-    selected = TF;
+    getData();
     notifyListeners();
   }
-
-  // Function to update the last document at the top
-  // Future<void> updateLastDocument(double value,bool select) async {
-  //   try {
-  //     final value = await getData();
-  //     if (expenses != null) {
-  //       final lastDocId = expenses?.last.$id;
-  //       final response = await databases.updateDocument(
-  //         databaseId: constants.database_ID,
-  //         collectionId: constants.collection_ID,
-  //         documentId: lastDocId,
-  //         data: {
-  //           'Saved_Amount': expenses?.last.data['Saved_Amount'] - (select?value:0.0),
-  //           'Total_Savings': expenses?.last.data['Total_Savings']- (select?value:0.0),
-  //           'Total_Expenditure': expenses?.last.data['Total_Expenditure']-(!select?value:0.0),
-  //         },
-  //       );
-  //       notifyListeners();
-  //       print('Last document updated successfully');
-  //     }
-  //   } catch (e) {
-  //     print('Failed to update the last document: $e');
-  //   }
-
-    fetchSavedAmount(double amount,bool select)
-    {
-      curr_balance = 0;
-      if(select)
-        {
-          curr_balance = expenses?.last.data['Curr_Amount'] - amount;
-        }
-      else
-        {
-          curr_balance = expenses?.last.data['Curr_Amount'] + amount;
-        }
-      notifyListeners();
-    }
 }

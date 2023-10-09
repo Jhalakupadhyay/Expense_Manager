@@ -63,7 +63,7 @@ class _B_SheetState extends State<B_Sheet> {
                           setState(() {
                             color = Colors.greenAccent.withAlpha(100);
                             selected = true;
-                            state.selected = selected;
+                            state.set_selected(selected);
                             print(state.selected);
                           });
                         },
@@ -82,8 +82,7 @@ class _B_SheetState extends State<B_Sheet> {
                         setState(() {
                           color = Colors.redAccent.withAlpha(100);
                           selected = false;
-                          state.selected = selected;
-                          print(state.selected);
+                          state.set_selected(selected);
                         });
                       },
                       child: Button(
@@ -123,9 +122,9 @@ class _B_SheetState extends State<B_Sheet> {
                           if (!currentFocus.hasPrimaryFocus) {
                             currentFocus.unfocus();
                           }
-                          state.fetchData();
-                          state.updateBalance(double.tryParse(amount.text) ?? 0.0 );
-                          state.addData(reason: text.text, amount: double.tryParse(amount.text) ?? 0.0,credited: selected);
+                          // state.fetchData();
+                          // state.updateBalance(double.tryParse(amount.text) ?? 0.0 );
+                          state.addData(reason: text.text, amount: double.tryParse(amount.text) ?? 0.0);
                           // to close the bottom sheet with animation on clicking check icon
                           setState(() {
                             text.clear();

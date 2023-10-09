@@ -91,12 +91,12 @@ class _ExpensesState extends State<Expenses> {
                     return Dismissible(
                       key: Key(expense.$id.toString()),
                       onDismissed: (direction){
-                        state.fetchSavedAmount(provider.expenses![index].data['Amount'].toDouble(), provider.expenses![index].data['Credited_Debited']);
-                        setState(() async {
-                          if(await state.Delete_Document(expense.$id.toString()))
-                            {
-                              provider.expenses!.removeAt(index);
-                            }
+                        // state.fetchSavedAmount(provider.expenses![index].data['Amount'].toDouble(), provider.expenses![index].data['Credited_Debited']);
+                        setState(() 
+                        {
+                          provider.deleted_document = provider.expenses![index];
+                          provider.Delete_Document(provider.expenses![index].$id);
+                          provider.expenses!.removeAt(index);
                         });
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Item Deleted'),
